@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monitor de preços — Upgrade do PC</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#eaf0f8;background:#101722}
+*{box-sizing:border-box}body{margin:0;padding:24px;max-width:1100px;margin:auto}
+header{margin-bottom:22px}h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.3rem)}p{color:#b7c4d6;line-height:1.5}
+.note{background:#1b2a3d;border:1px solid #30465f;padding:14px;border-radius:12px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.card{background:#182231;border:1px solid #2b3b50;border-radius:16px;padding:18px}
+.card h2{font-size:1.15rem;line-height:1.35;margin:0 0 8px}
+.price{font-size:1.7rem;font-weight:700;margin:14px 0 4px}
+small,.muted{color:#aab9cc}
+label{display:block;font-size:.9rem;color:#c7d4e5;margin:12px 0 5px}
+input{width:100%;padding:11px;border-radius:8px;border:1px solid #43566d;background:#0f1722;color:#fff;font-size:1rem}
+button,.link{display:inline-block;border:0;border-radius:8px;padding:10px 12px;background:#4e8cff;color:#fff;text-decoration:none;font-weight:700;cursor:pointer;margin:8px 6px 0 0}
+button.secondary,.link.secondary{background:#2b3b50;color:#eaf0f8}
+.status{font-weight:700;margin-top:10px}.good{color:#73e0a3}.wait{color:#ffd479}
+.stores{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.stores a{font-size:.86rem;padding:8px 9px;border-radius:7px;background:#26364b;color:#dce9fa;text-decoration:none}
+footer{margin-top:24px;font-size:.9rem;color:#9fb0c5}
+</style>
+</head>
+<body>
+<header>
+<h1>Monitor de preços do PC</h1>
+<p>Acompanhe os preços-alvo dos componentes para o upgrade. Esta versão é simples: você registra o preço encontrado e abre as buscas das lojas diretamente daqui.</p>
+</header>
+<div class="note">
+<strong>Importante:</strong> esta página não coleta preços sozinha. Ela não precisa de instalação: basta abrir o arquivo no navegador. Os valores que você registrar ficam salvos neste navegador. Para consulta automática a cada 2 horas/10 minutos, seria necessário hospedar um serviço de monitoramento separado.
+</div>
+<div class="grid">
+<section class="card" data-id="cpu">
+<h2>Intel Core i5-14600KF</h2>
+<div class="muted">Preço-alvo inicial: R$ 1.400,00</div>
+<div class="price" id="cpu-display">Sem preço registrado</div>
+<div class="muted" id="cpu-date">Registre um preço abaixo.</div>
+<label for="cpu-target">Meu preço-alvo (R$)</label><input id="cpu-target" type="number" min="0" step="0.01" value="1400">
+<label for="cpu-price">Preço encontrado (R$)</label><input id="cpu-price" type="number" min="0" step="0.01" placeholder="Ex.: 1399,90">
+<label for="cpu-url">Link direto do anúncio (opcional)</label><input id="cpu-url" type="url" placeholder="https://...">
+<button onclick="save('cpu')">Salvar preço</button><button class="secondary" onclick="openSaved('cpu')">Abrir anúncio salvo</button>
+<div class="status" id="cpu-status"></div>
+<div class="stores">
+<a target="_blank" rel="noopener" href="https://www.amazon.com.br/s?k=i5-14600KF">Amazon</a>
+<a target="_blank" rel="noopener" href="https://www.kabum.com.br/busca/i5-14600kf">KaBuM!</a>
+<a target="_blank" rel="noopener" href="https://www.pichau.com.br/search?q=i5-14600kf">Pichau</a>
+<a target="_blank" rel="noopener" href="https://lista.mercadolivre.com.br/i5-14600kf">Mercado Livre</a>
+<a target="_blank" rel="noopener" href="https://www.terabyteshop.com.br/busca?str=i5-14600kf">Terabyte</a>
+</div>
+</section>
+<section class="card" data-id="mb">
+<h2>Gigabyte B760M Gaming X DDR4 Gen5</h2>
+<div class="muted">Preço-alvo inicial: R$ 1.000,00</div>
+<div class="price" id="mb-display">Sem preço registrado</div>
+<div class="muted" id="mb-date">Registre um preço abaixo.</div>
+<label for="mb-target">Meu preço-alvo (R$)</label><input id="mb-target" type="number" min="0" step="0.01" value="1000">
+<label for="mb-price">Preço encontrado (R$)</label><input id="mb-price" type="number" min="0" step="0.01" placeholder="Ex.: 999,90">
+<label for="mb-url">Link direto do anúncio (opcional)</label><input id="mb-url" type="url" placeholder="https://...">
+<button onclick="save('mb')">Salvar preço</button><button class="secondary" onclick="openSaved('mb')">Abrir anúncio salvo</button>
+<div class="status" id="mb-status"></div>
+<div class="stores">
+<a target="_blank" rel="noopener" href="https://www.amazon.com.br/s?k=Gigabyte+B760M+Gaming+X+DDR4">Amazon</a>
+<a target="_blank" rel="noopener" href="https://www.kabum.com.br/busca/b760m-gaming-x-ddr4">KaBuM!</a>
+<a target="_blank" rel="noopener" href="https://www.pichau.com.br/search?q=B760M%20Gaming%20X%20DDR4">Pichau</a>
+<a target="_blank" rel="noopener" href="https://lista.mercadolivre.com.br/b760m-gaming-x-ddr4">Mercado Livre</a>
+<a target="_blank" rel="noopener" href="https://www.terabyteshop.com.br/busca?str=B760M%20Gaming%20X%20DDR4">Terabyte</a>
+</div>
+</section>
+</div>
+<div class="note">
+<strong>Dica:</strong> confira se o anúncio é do modelo exato, quem é o vendedor, valor no Pix, frete e garantia. Em marketplaces, o primeiro preço pode ser de vendedor terceiro ou de produto diferente.
+</div>
+<footer>Os dados ficam guardados no armazenamento local deste navegador. Se apagar os dados do navegador ou abrir em outro dispositivo, os registros podem não aparecer.</footer>
+<script>
+const ids=['cpu','mb'];
+function money(n){return Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function load(id){
+ let d={}; try{d=JSON.parse(localStorage.getItem('pcmon_'+id)||'{}')}catch(e){}
+ if(d.target!==undefined) document.getElementById(id+'-target').value=d.target;
+ if(d.price!==undefined && d.price!=='') document.getElementById(id+'-price').value=d.price;
+ if(d.url) document.getElementById(id+'-url').value=d.url;
+ render(id,d);
+}
+function render(id,d){
+ const disp=document.getElementById(id+'-display'),date=document.getElementById(id+'-date'),status=document.getElementById(id+'-status');
+ if(d.price!==undefined && d.price!=='' && Number(d.price)>0){
+   disp.textContent=money(d.price); date.textContent=d.updated?'Atualizado em '+d.updated:'Preço registrado';
+   const target=Number(document.getElementById(id+'-target').value);
+   if(Number(d.price)<=target){status.textContent='✓ Abaixo ou igual ao preço-alvo!';status.className='status good';}
+   else {status.textContent='Acima do preço-alvo.';status.className='status wait';}
+ }else{disp.textContent='Sem preço registrado';date.textContent='Registre um preço abaixo.';status.textContent='';}
+}
+function save(id){
+ const target=Number(document.getElementById(id+'-target').value||0);
+ const price=document.getElementById(id+'-price').value;
+ const url=document.getElementById(id+'-url').value.trim();
+ const old=JSON.parse(localStorage.getItem('pcmon_'+id)||'{}');
+ const d={target,price,url,updated:price?new Date().toLocaleString('pt-BR'):old.updated};
+ localStorage.setItem('pcmon_'+id,JSON.stringify(d));render(id,d);
+ if(price && Number(price)>0 && Number(price)<=target){alert('Preço-alvo atingido para '+(id==='cpu'?'i5-14600KF':'B760M Gaming X DDR4')+'!');}
+}
+function openSaved(id){
+ const d=JSON.parse(localStorage.getItem('pcmon_'+id)||'{}');
+ if(d.url){window.open(d.url,'_blank','noopener');}else{alert('Cole e salve primeiro o link direto de um anúncio.');}
+}
+ids.forEach(load);
+</script>
+</body>
+</html>
